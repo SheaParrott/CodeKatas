@@ -21,9 +21,7 @@ function abbrevName(name) {
   let array = name.split(' ')
   let initials = ''
   for (i = 0; i < array.length; i++) {
-    i > 0
-      ? (initials = initials + '.' + array[i].slice(0, 1))
-      : (initials = array[i].slice(0, 1))
+    i > 0 ? (initials = initials + '.' + array[i][0]) : (initials = array[i][0])
   }
   return initials.toUpperCase()
 }
