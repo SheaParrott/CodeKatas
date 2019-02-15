@@ -32,3 +32,12 @@ def delete_nth(order,max_e)
   end
   answer
 end
+
+# best practices from the solutions section
+# I learned a new way to count the occurances of 
+# an element with use of Hash.new
+
+def delete_nth(order, max_e)
+  occurrences = Hash.new(0)
+  order.reject { |item| (occurrences[item] += 1) > max_e }
+end
