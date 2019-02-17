@@ -19,7 +19,11 @@ def pig_it text
 end
 
 # best practice with high clever marks in solutions
+# Solified how useful and powerful regex is. Learned that
+# I need to make better use of ruby's build in methods such
+# as gsub.
 
+# Answer explained:
 # gsub() performs in place string substitution.
 # The regex expression searches for a single letter \w, 
 # and the parentheses make it a capture group, so (\w) 
