@@ -42,3 +42,9 @@ def s n
   n.to_s.gsub!(/(\d)(\d+)*/,`#{1.to_i**2}\2`) # does not work, I can find the numbers with regex but struggling on converting it back to integer and multiplying it.
   n.to_s.chars.map{|v|v.to_i**2}.join.to_i #works but is 5 characters too long
 end
+
+# finally got it!
+
+def s n
+  n.to_s.gsub(/\d/){|d| d.to_i**2}.to_i
+ end
