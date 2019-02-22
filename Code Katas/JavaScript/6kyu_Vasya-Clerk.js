@@ -16,7 +16,6 @@
 
 function tickets(people) {
   let array = []
-  console.log(people)
   for (let i = 0; i < people.length; i++) {
     let sum = array.reduce(function(accumulator, currentValue) {
       return accumulator + currentValue
@@ -28,28 +27,27 @@ function tickets(people) {
       array.push(people[i])
       due = people[i] - 25
     }
-    if (
-      (due === 75 &&
-        array.filter(value => value === 50).length === 0 &&
-        array.filter(value => value === 25).length === 0) ||
-      (due === 75 && array.filter(value => value === 25).length <= 2)
-    ) {
-      console.log('$75 due')
-      return 'NO'
-    } else if (
-      (due === 50 && array.filter(value => value === 50).length < 1) ||
-      (due === 50 && array.filter(value => value === 25).length < 2)
-    ) {
-      console.log('$50 due')
-      return 'NO'
+    if (due === 75) {
+      let includesFifty = array.includes(50)
+      let howManyTwentyFives = array.filter(value => value === 25).length
+      if (!includesFifty && howManyTwentyFives < 1) {
+        return 'NO'
+      } else if (howManyTwentyFives <= 2) {
+        return 'NO'
+      }
+    } else if (due === 25) {
+      let includesTwentyFive = array.includes(25)
+      if (!includesTwentyFive) {
+        return 'NO'
+      }
     }
     while (due > 0) {
-      if (due >= 50 && array.find(value => value == 50)) {
+      if (due == 75 && array.includes(50)) {
         let value = array.find(value => value == 50)
         let index = array.indexOf(value)
         due = due - value
         array.splice(index, 1)
-      } else if (due > 0) {
+      } else {
         let value = array.find(value => value == 25)
         let index = array.indexOf(value)
         due = due - value
@@ -57,7 +55,6 @@ function tickets(people) {
       }
     }
   }
-
   return 'YES'
 }
 
