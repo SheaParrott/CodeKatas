@@ -27,3 +27,9 @@ function DNAtoRNA(dna) {
     })
     .join('')
 }
+
+// best practice from solutions
+
+function DNAtoRNA(dna) {
+  return dna.replace(/T/g, 'U')
+}
