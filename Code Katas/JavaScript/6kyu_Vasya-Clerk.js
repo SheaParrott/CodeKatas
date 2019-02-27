@@ -14,81 +14,73 @@
 //  give the change with the bills he has at hand at that moment.
 //   Otherwise return NO.
 
-function tickets(people) {
-  let array = []
-  for (let i = 0; i < people.length; i++) {
-    let sum = array.reduce(function(accumulator, currentValue) {
-      return accumulator + currentValue
-    }, 0)
-    let due = 0
-    if (sum < people[i] - 25) {
-      return 'NO'
-    } else {
-      array.push(people[i])
-      due = people[i] - 25
-    }
-    if (due === 75) {
-      let includesFifty = array.includes(50)
-      let howManyTwentyFives = array.filter(value => value === 25).length
-      if (!includesFifty && howManyTwentyFives < 1) {
-        return 'NO'
-      } else if (howManyTwentyFives <= 2) {
-        return 'NO'
-      }
-    } else if (due === 25) {
-      let includesTwentyFive = array.includes(25)
-      if (!includesTwentyFive) {
-        return 'NO'
-      }
-    }
-    while (due > 0) {
-      if (due == 75 && array.includes(50)) {
-        let value = array.find(value => value == 50)
-        let index = array.indexOf(value)
-        due = due - value
-        array.splice(index, 1)
-      } else {
-        let value = array.find(value => value == 25)
-        let index = array.indexOf(value)
-        due = due - value
-        array.splice(index, 1)
-      }
-    }
+let tickets = people => {
+  let drawer = { '25': 0, '50': 0, '100': 0 }
+
+  let changeDrawer = (payment, ...change) => {
+    drawer[payment] = drawer[payment] + 1
+    if (change.length)
+      change.map(bill => {
+        drawer[bill]--
+      })
   }
-  return 'YES'
+
+  let sum = obj => {
+    let totalArray = [...Object.keys(obj)]
+      .map(key => [...Array(obj[key])].map(item => +key))
+      .reduce((flat, toFlat) => {
+        return flat.concat(toFlat)
+      })
+    return totalArray.length ? totalArray.reduce((a, c) => a + c) : 0
+  }
+
+  let cannotComplete = people.find(person => {
+    if (person - 25 <= sum(drawer)) {
+      if (person === 25) changeDrawer(25)
+      else if (person === 50) {
+        if (drawer['25']) changeDrawer(50, 25)
+        else return true
+      } else {
+        if (drawer['50'] && drawer['25']) changeDrawer(100, 50, 25)
+        else if (drawer['25'] >= 3) changeDrawer(100, 25, 25, 25)
+        else return true
+      }
+    } else return true
+  })
+
+  return !!cannotComplete ? 'NO' : 'YES'
 }
 
-// challenged myself to do this solely using objects.
-//  However, this has proven to be VERY slow. I will do this
-//  again but work with arrays.
-function tickets(p) {
-  let obj = {}
-  for (let i = 0; i < p.length; i++) {
-    let sum = 0
-    let due = 0
-    for (var key in obj) {
-      sum += key * obj[key]
-    } // determine my sum
-    if (sum < p[i] - 25) {
-      return 'NO'
-    } else {
-      due += p[i] - 25
-      obj[p[i]] = (obj[p[i]] || 0) + 1
-    } // guard clase then added to object and check for amount due
-    while (due > 0) {
-      if (due >= 50 && obj[50]) {
-        obj[50] = (obj[50] || 0) - 1
-        due = due - 50
-      } else if (due >= 50 && obj[25]) {
-        obj[25] = (obj[25] || 0) - 1
-        due = due - 25
-      } else if (due < 50 && !(due === 0)) {
-        if (obj[25]) {
-          obj[25] = (obj[25] || 0) - 1
-          due = due - 25
-        } // loop to pay customer back
-      }
-    }
+// best practice from solutions
+
+function Clerk(name) {
+  this.name = name
+
+  this.money = {
+    25: 0,
+    50: 0,
+    100: 0
   }
-  return 'YES'
+
+  this.sell = function(element, index, array) {
+    this.money[element]++
+
+    switch (element) {
+      case 25:
+        return true
+      case 50:
+        this.money[25]--
+        break
+      case 100:
+        this.money[50] ? this.money[50]-- : (this.money[25] -= 2)
+        this.money[25]--
+        break
+    }
+    return this.money[25] >= 0
+  }
+}
+
+function tickets(peopleInLine) {
+  var vasya = new Clerk('Vasya')
+  return peopleInLine.every(vasya.sell.bind(vasya)) ? 'YES' : 'NO'
 }
