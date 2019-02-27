@@ -54,12 +54,14 @@ def bystate(str)
   lookup.each do |abbreviation, name|
     while arr.find { |e| /#{abbreviation}/ =~ e } 
       foundString = arr.find { |e| (/#{abbreviation}/ =~ e)}
+      foundReplaced = "\r\n..... " + foundString.gsub(/#{abbreviation}/, "") + name
+      
       if lastState == ''
-        answer.concat(Array.new(1, (name + "\r\n..... " + (foundString.gsub(/#{abbreviation}/, "") + name ))))
+        answer.concat(Array.new(1, (name + foundReplaced)))
       elsif lastState == name
-        answer.concat(Array.new(1, ("\r\n..... " + (foundString.gsub(/#{abbreviation}/, "") + name ))))
+        answer.concat(Array.new(1, (foundReplaced)))
       else
-        answer.concat(Array.new(1, ("\r\n " + name + "\r\n..... " + (foundString.gsub(/#{abbreviation}/,name)))))
+        answer.concat(Array.new(1, ("\r\n " + name + "\r\n..... " + foundString.gsub(/#{abbreviation}/, name))))
       end
       arr = arr.reject{|i| i == foundString}
       lastState = name
