@@ -15,6 +15,7 @@ http://shea-portfolio.surge.sh/
 Also, here is a link to <i>Community</i>. This is a full stack single-page application with full CRUD functionality built from the ground up and deployed using git and a remote web server. 
 <br/>
 https://shea-community.herokuapp.com/
+<br/>
 The code:
 <br/>
 https://github.com/SheaParrott/Community
