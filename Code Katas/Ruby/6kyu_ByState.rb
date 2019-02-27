@@ -103,3 +103,27 @@ def bystate(str)
   end
   res[3..-1]
 end
+
+# I ran this one by Gavin Stark from SDG. This is his answer. Wow!
+
+STATES = {
+'AZ' => 'Arizona',
+'CA' => 'California',
+'ID' => 'Idaho',
+'IN' => 'Indiana',
+'MA' => 'Massachusetts',
+'OK' => 'Oklahoma',
+'PA' => 'Pennsylvania',
+'VA' => 'Virginia'
+}
+
+def bystate(str)
+  str.
+    split("\n").
+    group_by { |entry| entry[-2..-1] }.
+    sort_by { |abbreviation, entries| abbreviation }.
+    map { |abbreviation, entries| [STATES[abbreviation.upcase], entries] }.
+    to_h.
+    map { |state, entries| "#{state}\r\n#{entries.sort.map { |entry| "..... #{entry[0..-3]}#{state}" }.join("\r\n")}".delete(",") }.
+    join("\r\n ")
+end
