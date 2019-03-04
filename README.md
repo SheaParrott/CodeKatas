@@ -1,8 +1,9 @@
 # CodeKatas
+
 <br/>
 There are no secrets to success. It is the result of preparation, hard work, and learning from failure.
 <br/>
-This respository is a collection of my completed code katas. Below is a link to my profile. 
+This respository is a collection of my completed code katas. Current languages of study are Javascript, Ruby and Java. Below is a link to my profile. 
 <br/>
 https://www.codewars.com/users/SheaParrott
 <br/>
