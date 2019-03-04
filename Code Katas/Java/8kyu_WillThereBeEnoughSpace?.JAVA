@@ -25,3 +25,15 @@ public class Bob {
    return on + wait > cap ? on + wait - cap : 0;
   }
 }
+
+// Best practice from solutions. We are never trying to change the values
+// of capacity, alreadyOn or waiting. This makes sense to make them a 
+// final. Great use of data types. I believe common practice of final
+// is to make them all caps. If this was my solution thats one thing I 
+// would change here.
+
+class Bob {
+    static int enough(final int capacity, final int alreadyOn, final int waiting){
+        return Math.max(0, waiting + alreadyOn - capacity);
+    }
+}
