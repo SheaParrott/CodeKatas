@@ -14,3 +14,16 @@ class Kata {
     return answer;
   }
 }
+
+// best practice from solutions
+
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Kata {
+  public static String countingSheep(int num) {
+    return IntStream.rangeClosed(1, num)
+                    .mapToObj(i -> i + " sheep...")
+                    .collect(Collectors.joining());
+  }
+}
