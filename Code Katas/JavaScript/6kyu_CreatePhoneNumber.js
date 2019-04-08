@@ -48,3 +48,9 @@ function createPhoneNumber(numbers) {
 
   return format
 }
+
+// Here is some regex magic! I'm going to master this kind of approach!
+
+function createPhoneNumber(numbers) {
+  return numbers.join('').replace(/(...)(...)(.*)/, '($1) $2-$3')
+}
