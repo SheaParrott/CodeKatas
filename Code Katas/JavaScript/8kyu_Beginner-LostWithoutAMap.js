@@ -8,3 +8,9 @@
 //  is a good one to know.
 
 const maps = x => x.map(n => n * 2)
+
+// best practice from solutions
+
+function maps(x) {
+  return x.map(n => n * 2)
+}
