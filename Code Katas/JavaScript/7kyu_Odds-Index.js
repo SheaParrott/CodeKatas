@@ -5,7 +5,7 @@
 
 const oddBall = arr => arr.includes(arr.indexOf('odd'))
 
-// best practice from solutions
+// best practice from solutions.
 
 function oddBall(arr) {
   return arr.includes(arr.indexOf('odd'))
