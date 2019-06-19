@@ -24,3 +24,8 @@ function generateShape(n) {
 
 // wow ^^ :O
 // Okay, will play around with that method. If I have seen this it was a while back.
+
+// pulled definition below from devdocs.io for easier reference
+
+// The repeat() method constructs and returns a new string which contains the specified
+// number of copies of the string on which it was called, concatenated together.
