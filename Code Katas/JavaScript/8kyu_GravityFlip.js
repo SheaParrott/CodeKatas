@@ -25,5 +25,3 @@ const flip = (d, a) => {
     return a.sort((a, b) => b - a)
   }
 }
-
-// best practice from solutions
